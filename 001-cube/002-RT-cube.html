@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mono Test</title>
+    <script type="text/javascript" src = "../dist/RT.js"></script>
+    <script type="text/javascript">
+        var box, network;
+        function init(){
+            box = new mono.DataBox();
+            network= new mono.Network3D(box, null, monoCanvas);
+            mono.Utils.autoAdjustNetworkBounds(network,document.documentElement,'clientWidth','clientHeight');
+
+            var pointLight = new mono.PointLight(0xFFFFFF,1.5);
+            pointLight.setPosition(1000,1000,1000);
+            box.add(pointLight);
+            box.add(new mono.AmbientLight(0x888888));
+
+            var cube = new mono.Cube(600 , 20 , 100 , 6 , 6);
+            cube.s({
+                'm.type': 'phong',
+                'm.color': 'red',
+                'm.ambient': 'red',
+                'm.side':mono.DoubleSide,
+                'm.wireframe':true,
+                'm.wireframeLinewidth': 4,
+                'm.wireframeLinecolor': 'green',
+                'm.wireframeLineopacity': 1,
+            });
+            cube.s('select.width', 10);
+            cube.setStyle('select.style', 'outline.glow');
+            cube.setStyle('select.color', '#0433B5');
+            cube.setSelected(true);
+            cube.setMaterialStyle('vertexColors',true);
+            box.add(cube);
+        }
+    </script>
+</head>
+<body onload = 'init()'>
+    <div>
+        <canvas id="monoCanvas"/>
+    </div>
+</body>
+</html>
